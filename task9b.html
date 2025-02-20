@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Register and Login Form</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      background-color: #f4f4f4;
+    }
+    .container {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      width: 300px;
+    }
+    .container h2 {
+      text-align: center;
+    }
+    .form-group {
+      margin-bottom: 15px;
+    }
+    .form-group label {
+      display: block;
+      margin-bottom: 5px;
+    }
+    .form-group input {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    .form-group button {
+      width: 100%;
+      padding: 10px;
+      background-color: #4caf50;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .form-group button:hover {
+      background-color: #45a049;
+    }
+    .message {
+      text-align: center;
+      color: red;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container" id="registerContainer">
+    <h2>Register</h2>
+    <div class="form-group">
+      <label for="registerUsername">Username</label>
+      <input type="text" id="registerUsername" required>
+    </div>
+    <div class="form-group">
+      <label for="registerPassword">Password</label>
+      <input type="password" id="registerPassword" required>
+    </div>
+    <div class="form-group">
+      <label for="registerGmail">Gmail</label>
+      <input type="email" id="registerGmail" required>
+    </div>
+    <div class="form-group">
+      <button onclick="register()">Register</button>
+    </div>
+    <div class="message" id="registerMessage"></div>
+  </div>
+
+  <div class="container" id="loginContainer" style="display: none;">
+    <h2>Login</h2>
+    <div class="form-group">
+      <label for="loginUsername">Username</label>
+      <input type="text" id="loginUsername" required>
+    </div>
+    <div class="form-group">
+      <label for="loginPassword">Password</label>
+      <input type="password" id="loginPassword" required>
+    </div>
+    <div class="form-group">
+      <button onclick="login()">Login</button>
+    </div>
+    <div class="message" id="loginMessage"></div>
+  </div>
+
+  <script>
+    function register() {
+      const username = document.getElementById('registerUsername').value;
+      const password = document.getElementById('registerPassword').value;
+      const gmail = document.getElementById('registerGmail').value;
+
+      if (username && password && gmail) {
+        localStorage.setItem('username', username);
+        localStorage.setItem('password', password);
+        localStorage.setItem('gmail', gmail);
+
+        document.getElementById('registerMessage').innerText = 'Registration successful!';
+
+        setTimeout(() => {
+          document.getElementById('registerContainer').style.display = 'none';
+          document.getElementById('loginContainer').style.display = 'block';
+        }, 1000);
+      } else {
+        document.getElementById('registerMessage').innerText = 'Please fill all fields.';
+      }
+    }
+
+    function login() {
+      const username = document.getElementById('loginUsername').value;
+      const password = document.getElementById('loginPassword').value;
+
+      const storedUsername = localStorage.getItem('username');
+      const storedPassword = localStorage.getItem('password');
+
+      if (username === storedUsername && password === storedPassword) {
+        document.getElementById('loginMessage').innerText = 'Login successful!';
+        document.getElementById('loginMessage').style.color = 'green';
+      } else {
+        document.getElementById('loginMessage').innerText = 'Invalid username or password.';
+        document.getElementById('loginMessage').style.color = 'red';
+      }
+    }
+  </script>
+</body>
+</html>
